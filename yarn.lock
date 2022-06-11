@@ -583,6 +583,77 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
+"@mikro-orm/cli@^5.1.5":
+  version "5.1.5"
+  resolved "https://registry.yarnpkg.com/@mikro-orm/cli/-/cli-5.1.5.tgz#fccdeee57e33b93cf6763d34099d0b24501019cf"
+  integrity sha512-K085njvTdyVlAUKX/u7BX2BsAgtqz3R4zlao+uWS2zgwtMrZY2nTmcjGMaelAw/DVs7UKdR0y6p0JIs/vZPzxQ==
+  dependencies:
+    "@mikro-orm/core" "^5.1.5"
+    "@mikro-orm/knex" "^5.1.5"
+    fs-extra "10.1.0"
+    tsconfig-paths "4.0.0"
+    yargonaut "1.1.4"
+    yargs "15.4.1"
+
+"@mikro-orm/core@^5.1.5":
+  version "5.1.5"
+  resolved "https://registry.yarnpkg.com/@mikro-orm/core/-/core-5.1.5.tgz#0840857aace9b65bfd22431745e821fd64f6b120"
+  integrity sha512-UU4c6QhdRFO81sF/QlVhJncDEu50nYo+MZzHD3fIP7dNn8cjr86zv2uqK8Bs2TWhPz4HE8mPT6qoZHWlisUNJA==
+  dependencies:
+    dotenv "16.0.1"
+    escaya "0.0.61"
+    fs-extra "10.1.0"
+    globby "11.0.4"
+    mikro-orm "^5.1.5"
+    reflect-metadata "0.1.13"
+
+"@mikro-orm/knex@^5.1.5":
+  version "5.1.5"
+  resolved "https://registry.yarnpkg.com/@mikro-orm/knex/-/knex-5.1.5.tgz#dad6ce41bca3e779e2553591e0e3d60864755744"
+  integrity sha512-u1L5WIBliXYTpuRLpTcTPn8/b6loQ41EMsiZTHs5utBKJK19RDqv8YtMVzu7Wku5E8RTYuF27OjHVVLvUV61PQ==
+  dependencies:
+    fs-extra "10.1.0"
+    knex "2.1.0"
+    sqlstring "2.3.3"
+
+"@mikro-orm/migrations@^5.1.5":
+  version "5.1.5"
+  resolved "https://registry.yarnpkg.com/@mikro-orm/migrations/-/migrations-5.1.5.tgz#e656b3c3d13014b3a9b4945c24b1a0c139345e2b"
+  integrity sha512-noOjJFkzAzvKf+hUp2XFjeA6s8wzNKzR12lSz0XUY6VDbEBERlDSfp6nwXsqTKzYxYvf0Q4nyLDFKbcgeYZIGw==
+  dependencies:
+    "@mikro-orm/knex" "^5.1.5"
+    fs-extra "10.1.0"
+    knex "2.1.0"
+    umzug "3.1.1"
+
+"@mikro-orm/nestjs@^5.0.1":
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/@mikro-orm/nestjs/-/nestjs-5.0.1.tgz#658052cc91691839e32c2653a95aa7311788dce4"
+  integrity sha512-nvUlMCB0yFHSr44ZyWOSGH4RMo/3bM7Wdzsuc2Rf/JeXfErARYIzJWeRXuPlxGYSbFGLKx+uFmZgq+3gIqtWJw==
+
+"@mikro-orm/postgresql@^5.1.5":
+  version "5.1.5"
+  resolved "https://registry.yarnpkg.com/@mikro-orm/postgresql/-/postgresql-5.1.5.tgz#c7253177062c3a76620a1485b43920f44235cf9a"
+  integrity sha512-XUy87tqm0COjmYPNvewluRovZ+gnrU4gSbqPySLvM8csaEQ3OxpUiMb/WGyFrKnRWKGRugX1hZsUigQS6LznHg==
+  dependencies:
+    "@mikro-orm/knex" "^5.1.5"
+    pg "8.7.3"
+
+"@mikro-orm/reflection@^5.1.5":
+  version "5.1.5"
+  resolved "https://registry.yarnpkg.com/@mikro-orm/reflection/-/reflection-5.1.5.tgz#8b62b81c908eb7360909c463cda3aecd8a19937b"
+  integrity sha512-fEmATE4J8jrlR4bJL26aKImDax95xBs2K0eup+V9TZszSuQ9v5fh/ugkSK+OKg5oYbaipg4zQs+4Pe1/UZfXkA==
+  dependencies:
+    globby "11.0.4"
+    ts-morph "15.0.0"
+
+"@mikro-orm/sql-highlighter@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@mikro-orm/sql-highlighter/-/sql-highlighter-1.0.1.tgz#f821cad6d6dbd6fd8be486e223f2d92fd6a280e6"
+  integrity sha512-iO+FwRNuqNDVlIo5zfgOu2mMGVicX/FqzP+F/A0xpJLHyqvWyXzVwntgAMimBjQaxiX9Rpmc0u3Jq6/A6V6JQA==
+  dependencies:
+    ansi-colors "^4.1.1"
+
 "@nestjs/cli@^7.0.0":
   version "7.6.0"
   resolved "https://registry.yarnpkg.com/@nestjs/cli/-/cli-7.6.0.tgz#661f99b578284f9124307a8077f004a091b25e77"
@@ -4174,6 +4245,11 @@ micromatch@^4.0.0, micromatch@^4.0.2:
   dependencies:
     braces "^3.0.2"
     picomatch "^2.3.1"
+
+mikro-orm@^5.1.5:
+  version "5.1.5"
+  resolved "https://registry.yarnpkg.com/mikro-orm/-/mikro-orm-5.1.5.tgz#5cbe1b6e56956f8ed6cdf5f53c8ef581695db151"
+  integrity sha512-yGSGat+DllafSlAYX3TO7309WufAa6xU2pSYgHMuAo0C+QSOdOFug9w7Vo8+PDMwLTtx2fO/qDLMHthbU0r7gA==
 
 mime-db@1.52.0:
   version "1.52.0"

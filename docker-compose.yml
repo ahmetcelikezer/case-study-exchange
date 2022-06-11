@@ -1,0 +1,29 @@
+version: '3'
+services:
+  db:
+    image: postgres:14.3
+    environment:
+      - POSTGRES_USER=eva_user
+      - POSTGRES_PASSWORD=eva_password
+      - POSTGRES_DB=eva_db
+    ports:
+      - "5432:5432"
+    restart: always
+    networks:
+      - main-network
+
+  db-test:
+    image: postgres:14.3
+    environment:
+      - POSTGRES_USER=eva_test_user
+      - POSTGRES_PASSWORD=eva_test_password
+      - POSTGRES_DB=eva_test_db
+    ports:
+      - "5433:5432"
+    restart: always
+    networks:
+      - main-network
+
+networks:
+  main-network:
+    driver: bridge
