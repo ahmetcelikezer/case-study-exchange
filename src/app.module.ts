@@ -4,6 +4,7 @@ import {
   NestModule,
   OnModuleInit,
 } from '@nestjs/common';
+import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { MikroOrmMiddleware, MikroOrmModule } from '@mikro-orm/nestjs';
 import { MikroORM } from '@mikro-orm/core';
@@ -19,6 +20,7 @@ const ENV = process.env.NODE_ENV || 'development';
     }),
     MikroOrmModule.forRoot(),
     UserModule,
+    AuthModule,
   ],
 })
 export class AppModule implements NestModule, OnModuleInit {
