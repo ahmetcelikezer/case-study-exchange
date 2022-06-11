@@ -15,6 +15,46 @@
           "nullable": false,
           "mappedType": "uuid"
         },
+        "balance": {
+          "name": "balance",
+          "type": "decimal(15,2)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "precision": 15,
+          "scale": 2,
+          "default": "0",
+          "mappedType": "decimal"
+        }
+      },
+      "name": "wallet",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "wallet_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
         "email": {
           "name": "email",
           "type": "varchar(255)",
@@ -32,6 +72,15 @@
           "primary": false,
           "nullable": false,
           "mappedType": "string"
+        },
+        "wallet_id": {
+          "name": "wallet_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
         }
       },
       "name": "user",
@@ -47,6 +96,15 @@
           "unique": true
         },
         {
+          "columnNames": [
+            "wallet_id"
+          ],
+          "composite": false,
+          "keyName": "user_wallet_id_unique",
+          "primary": false,
+          "unique": true
+        },
+        {
           "keyName": "user_pkey",
           "columnNames": [
             "id"
@@ -57,7 +115,20 @@
         }
       ],
       "checks": [],
-      "foreignKeys": {}
+      "foreignKeys": {
+        "user_wallet_id_foreign": {
+          "constraintName": "user_wallet_id_foreign",
+          "columnNames": [
+            "wallet_id"
+          ],
+          "localTableName": "public.user",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.wallet",
+          "updateRule": "cascade"
+        }
+      }
     }
   ]
 }

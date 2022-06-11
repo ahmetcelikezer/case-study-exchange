@@ -33,6 +33,7 @@ describe('AuthController', () => {
             user: {
               id: existingUser.id,
               email: existingUser.email,
+              wallet: existingUser.wallet,
             },
           });
         });
@@ -113,6 +114,10 @@ describe('AuthController', () => {
             user: {
               id: expect.any(String),
               email: newUserCredentials.email,
+              wallet: {
+                id: expect.any(String),
+                balance: '0.00',
+              },
             },
           });
         });
