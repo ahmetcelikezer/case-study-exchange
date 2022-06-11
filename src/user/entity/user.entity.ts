@@ -1,9 +1,11 @@
 import {
   Entity,
-  EntityRepositoryType, OneToOne,
+  EntityRepositoryType,
+  OneToOne,
   PrimaryKey,
   Property,
   Unique,
+  UuidType,
 } from '@mikro-orm/core';
 import { v4 } from 'uuid';
 import { UserRepository } from '../repository/user.repository';
@@ -13,8 +15,8 @@ import { Wallet } from './wallet.entity';
 export class User {
   [EntityRepositoryType]?: UserRepository;
 
-  @PrimaryKey({ type: 'uuid' })
-  id: string = v4();
+  @PrimaryKey({ type: UuidType })
+  id: string;
 
   @Unique()
   @Property()
@@ -27,6 +29,7 @@ export class User {
   wallet: Wallet;
 
   constructor() {
+    this.id = v4();
     this.wallet = new Wallet();
   }
 }
