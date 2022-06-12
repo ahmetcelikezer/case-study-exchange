@@ -13,6 +13,14 @@ const config: Options = {
   highlighter: new SqlHighlighter(),
   metadataProvider: TsMorphMetadataProvider,
   registerRequestContext: false,
+  seeder: {
+    path: 'dist/src/seeders',
+    pathTs: 'src/seeders',
+    defaultSeeder: 'DatabaseSeeder',
+    glob: '!(*.d).{js,ts}',
+    emit: 'ts',
+    fileName: (className: string) => className,
+  },
   migrations: {
     path: 'dist/migrations',
     pathTs: 'src/migrations',
