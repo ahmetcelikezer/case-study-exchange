@@ -1,16 +1,20 @@
 import {
   DateTimeType,
   Entity,
+  EntityRepositoryType,
   ManyToOne,
-  OneToOne,
   PrimaryKey,
   Property,
 } from '@mikro-orm/core';
 import { User } from '../../user/entity/user.entity';
 import { Stock } from './stock.entity';
+import { TransactionRepository } from '../repository/transaction.repository';
+import { v4 } from 'uuid';
 
-@Entity()
+@Entity({ customRepository: () => TransactionRepository })
 export class Transaction {
+  [EntityRepositoryType]?: TransactionRepository;
+
   @PrimaryKey({ type: 'uuid' })
   id: string;
 
@@ -29,11 +33,15 @@ export class Transaction {
   @ManyToOne({ nullable: true })
   to: User | null;
 
-  @Property({ type: DateTimeType })
+  @Property({ type: DateTimeType, onCreate: () => new Date() })
   createdAt: Date;
 
-  @Property({ type: DateTimeType, nullable: true })
+  @Property({ type: DateTimeType, nullable: true, onUpdate: () => new Date() })
   completedAt?: Date;
+
+  constructor() {
+    this.id = v4();
+  }
 
   getRateAsNumber(): number {
     return parseFloat(this.rate);

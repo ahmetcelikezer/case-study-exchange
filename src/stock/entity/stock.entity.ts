@@ -1,6 +1,7 @@
 import {
   Collection,
   Entity,
+  EntityRepositoryType,
   OneToMany,
   PrimaryKey,
   Property,
@@ -9,9 +10,12 @@ import {
 } from '@mikro-orm/core';
 import { StockPrice } from './stock-price.entity';
 import { Transaction } from './transaction.entity';
+import { StockRepository } from '../repository/stock.repository';
 
-@Entity()
+@Entity({ customRepository: () => StockRepository })
 export class Stock {
+  [EntityRepositoryType]?: StockRepository;
+
   @Unique()
   @PrimaryKey({ type: StringType, length: 3 })
   symbol!: string;
