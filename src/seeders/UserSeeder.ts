@@ -5,9 +5,14 @@ import { CreateUserDTO } from '../user/dto/create-user.dto';
 import { UserFactory } from '../user/factory/entity/user.factory';
 import { WalletFactory } from '../user/factory/entity/wallet.factory';
 import { User } from '../user/entity/user.entity';
-import usersResource from '../../resource/users.json';
 
-const createUserDTOList: CreateUserDTO[] = usersResource;
+const createUserDTOList: CreateUserDTO[] = [
+  { email: 'john@eva.guru', password: '123456' },
+  { email: 'eva@eva.guru', password: '123456' },
+  { email: 'joe@eva.guru', password: '123456' },
+  { email: 'susan@eva.guru', password: '123456' },
+  { email: 'doe@eva.guru', password: '123456' },
+];
 
 export class UserSeeder extends Seeder {
   private passwordService = new PasswordService();
