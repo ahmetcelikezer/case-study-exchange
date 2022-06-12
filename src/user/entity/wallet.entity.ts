@@ -7,9 +7,13 @@ export class Wallet {
   id: string;
 
   @Property({ columnType: 'decimal(15,2)', default: 0 })
-  balance!: number;
+  balance!: string;
 
   constructor() {
     this.id = v4();
+  }
+
+  getBalanceAsNumber(): number {
+    return parseFloat(this.balance);
   }
 }
