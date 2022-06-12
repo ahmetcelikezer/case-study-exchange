@@ -1,10 +1,5 @@
-import {
-  IsDecimal,
-  IsNotEmpty,
-  IsNumber,
-  IsPositive,
-  IsString,
-} from 'class-validator';
+import { IsNotEmpty, IsNumber, IsPositive, IsString } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class BuyRequestDTO {
   @IsNotEmpty()
@@ -12,10 +7,7 @@ export class BuyRequestDTO {
   stock: string;
 
   @IsNotEmpty()
-  @IsDecimal({ decimal_digits: '2' })
-  rate: string;
-
-  @IsNotEmpty()
+  @Type(() => Number)
   @IsNumber()
   @IsPositive()
   amount: number;
