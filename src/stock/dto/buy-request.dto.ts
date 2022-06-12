@@ -7,8 +7,8 @@ export class BuyRequestDTO {
   stock: string;
 
   @IsNotEmpty()
-  @Type(() => Number)
   @IsNumber()
   @IsPositive()
+  @Type(() => Number)
   amount: number;
 }

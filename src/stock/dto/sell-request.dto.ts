@@ -19,9 +19,8 @@ export class SellRequestDTO {
   rate: string;
 
   @IsNotEmpty()
-  @Type(() => Number)
   @IsNumber({}, { message: 'Amount must be a number' })
   @Min(1)
-  @IsPositive()
+  @Type(() => Number)
   amount: number;
 }
