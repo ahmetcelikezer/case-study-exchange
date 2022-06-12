@@ -19,7 +19,7 @@ export class TransactionSeeder extends Seeder {
           transaction.stock = stock;
           transaction.from = user;
         })
-        .createOne();
+        .create(15);
     });
 
     // create completed transaction
@@ -36,7 +36,7 @@ export class TransactionSeeder extends Seeder {
           transaction.to = buyerUser;
           transaction.completedAt = new Date();
         })
-        .createOne();
+        .create(15);
     });
   }
 }

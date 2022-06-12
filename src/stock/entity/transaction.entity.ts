@@ -21,16 +21,13 @@ export class Transaction {
   @ManyToOne({ nullable: false })
   stock!: Stock;
 
-  @Property()
-  amount!: number;
-
   @Property({ columnType: 'decimal(15,2)' })
   rate!: string;
 
-  @ManyToOne()
+  @ManyToOne({ eager: true })
   from: User;
 
-  @ManyToOne({ nullable: true })
+  @ManyToOne({ nullable: true, eager: true })
   to: User | null;
 
   @Property({ type: DateTimeType, onCreate: () => new Date() })

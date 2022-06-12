@@ -1,6 +1,7 @@
 import {
   Entity,
   EntityRepositoryType,
+  LoadStrategy,
   OneToOne,
   PrimaryKey,
   Property,

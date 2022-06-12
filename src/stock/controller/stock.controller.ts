@@ -1,7 +1,8 @@
 import {
   Body,
   Controller,
-  HttpCode, NotImplementedException,
+  HttpCode,
+  NotImplementedException,
   Post,
   UnauthorizedException,
   UseGuards,
@@ -10,20 +11,43 @@ import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guard';
 import { BuyResponseDTO } from '../dto/buy-response.dto';
 import { SellResponseDTO } from '../dto/sell-response.dto';
 import { TransactionService } from '../service/transaction.service';
-import { CurrentUser } from '../decorator/current-user';
+import { CurrentUser } from '../../auth/decorator/current-user';
 import { User } from '../../user/entity/user.entity';
 import { ValidationPipe } from '../../pipe/validation.pipe';
 import { SellRequestDTO } from '../dto/sell-request.dto';
+import { BuyRequestDTO } from '../dto/buy-request.dto';
+import { UserRepository } from '../../user/repository/user.repository';
 
 @Controller('stock')
 @UseGuards(JwtAuthGuard)
 export class StockController {
-  constructor(private readonly transactionService: TransactionService) {}
+  constructor(
+    private readonly transactionService: TransactionService,
+    private readonly userRepository: UserRepository,
+  ) {}
 
   @Post('buy')
   @HttpCode(200)
-  async buy(): Promise<BuyResponseDTO> {
-    throw new NotImplementedException('Not implemented');
+  async buy(
+    @Body(new ValidationPipe()) dto: BuyRequestDTO,
+    @CurrentUser() user: User,
+  ): Promise<BuyResponseDTO> {
+    user = await this.userRepository.findOne({ id: user.id });
+    if (!user) {
+      throw new UnauthorizedException('Can not find user');
+    }
+
+    const summary = await this.transactionService.buyFromMarket(dto, user);
+
+    return {
+      stock: dto.stock,
+      estimatedAmount: dto.amount,
+      processSummary: {
+        totalStocksBought: summary.amount,
+        totalPriceSpent: summary.totalPrice,
+        isFailedByOutOfBalance: summary.outOfBalance,
+      },
+    };
   }
 
   @Post('sell')
@@ -32,19 +56,17 @@ export class StockController {
     @Body(new ValidationPipe()) dto: SellRequestDTO,
     @CurrentUser() user: User,
   ): Promise<SellResponseDTO> {
+    user = await this.userRepository.findOne({ id: user.id });
     if (!user) {
       throw new UnauthorizedException('Can not find user');
     }
-    const transaction = await this.transactionService.createSellTransaction(
-      dto,
-      user,
-    );
+
+    await this.transactionService.sellToMarket(dto, user);
 
     return {
-      stock: transaction.stock.symbol,
-      rate: transaction.rate,
-      amount: transaction.amount,
-      createdAt: transaction.createdAt,
+      stock: dto.stock,
+      rate: dto.rate,
+      amount: dto.amount,
     };
   }
 }

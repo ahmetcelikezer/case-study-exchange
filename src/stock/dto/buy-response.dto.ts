@@ -1,8 +1,11 @@
+type ProcessSummary = {
+  totalStocksBought: number;
+  totalPriceSpent: number;
+  isFailedByOutOfBalance: boolean;
+};
+
 export interface BuyResponseDTO {
   stock: string;
-  rate: string;
-  amount: number;
-  totalPrice: string;
-  createdAt: Date;
-  completedAt: Date;
+  estimatedAmount: number;
+  processSummary: ProcessSummary;
 }

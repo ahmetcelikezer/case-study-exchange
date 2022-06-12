@@ -1,8 +1,16 @@
-import { Entity, PrimaryKey, Property } from '@mikro-orm/core';
+import {
+  Entity,
+  EntityRepositoryType,
+  PrimaryKey,
+  Property,
+} from '@mikro-orm/core';
 import { v4 } from 'uuid';
+import { WalletRepository } from '../repository/wallet.repository';
 
-@Entity()
+@Entity({ customRepository: () => WalletRepository })
 export class Wallet {
+  [EntityRepositoryType]?: WalletRepository;
+
   @PrimaryKey({ type: 'uuid' })
   id: string;
 
@@ -15,5 +23,16 @@ export class Wallet {
 
   getBalanceAsNumber(): number {
     return parseFloat(this.balance);
+  }
+
+  addMoney(amount: number): void {
+    this.balance = (this.getBalanceAsNumber() + amount).toFixed(2);
+  }
+
+  drawMoney(amount: number): void {
+    if (this.getBalanceAsNumber() < amount) {
+      throw new Error('You cant draw money more than user have');
+    }
+    this.balance = (this.getBalanceAsNumber() - amount).toFixed(2);
   }
 }
