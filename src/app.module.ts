@@ -9,6 +9,7 @@ import { UserModule } from './user/user.module';
 import { MikroOrmMiddleware, MikroOrmModule } from '@mikro-orm/nestjs';
 import { MikroORM } from '@mikro-orm/core';
 import { ConfigModule } from '@nestjs/config';
+import { StockModule } from './stock/stock.module';
 
 const ENV = process.env.NODE_ENV || 'development';
 
@@ -21,6 +22,7 @@ const ENV = process.env.NODE_ENV || 'development';
     MikroOrmModule.forRoot(),
     UserModule,
     AuthModule,
+    StockModule,
   ],
 })
 export class AppModule implements NestModule, OnModuleInit {
