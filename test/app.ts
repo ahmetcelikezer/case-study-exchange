@@ -2,7 +2,7 @@ import { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import { AppModule } from '../src/app.module';
 import { MikroORM } from '@mikro-orm/core';
-import { EntityRepository } from '@mikro-orm/postgresql';
+import { EntityManager, EntityRepository } from '@mikro-orm/postgresql';
 
 export let app: INestApplication;
 
@@ -10,6 +10,12 @@ export const getRepository = <T>(entity: T): EntityRepository<T> => {
   const orm = app.get(MikroORM);
 
   return orm.em.fork().getRepository(entity);
+};
+
+export const getEntityManager = (): EntityManager => {
+  const orm = app.get(MikroORM);
+
+  return orm.em.fork();
 };
 
 export const resetDatabase = async () => {

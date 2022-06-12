@@ -1,14 +1,22 @@
 import * as request from 'supertest';
-import { app, getRepository } from '../app';
+import { app, getEntityManager } from '../app';
 import { CreateUserDTO } from '../../src/user/dto/create-user.dto';
-import { createUserHelper } from '../helper/user.helper';
-import { User } from '../../src/user/entity/user.entity';
 import { faker } from '@faker-js/faker';
+import { UserFactory } from '../../src/user/factory/entity/user.factory';
+import { EntityManager } from '@mikro-orm/postgresql';
+import { PasswordService } from '../../src/auth/service/password.service';
 
 const REGISTER_ENDPOINT = '/auth/register';
 const LOGIN_ENDPOINT = '/auth/login';
 
 describe('AuthController', () => {
+  let em: EntityManager;
+  const passwordService = new PasswordService();
+
+  beforeEach(async () => {
+    em = getEntityManager();
+  });
+
   describe('login', () => {
     const incorrectFields = [
       ['', faker.internet.password()],
@@ -21,7 +29,12 @@ describe('AuthController', () => {
         email: faker.internet.email(),
         password: faker.internet.password(),
       };
-      const existingUser = await createUser(existingUserCredentials);
+      const existingUser = await new UserFactory(em).createOne({
+        email: existingUserCredentials.email,
+        password: passwordService.hashPasswordSync(
+          existingUserCredentials.password,
+        ),
+      });
 
       return request(app.getHttpServer())
         .post(LOGIN_ENDPOINT)
@@ -59,7 +72,9 @@ describe('AuthController', () => {
         email: faker.internet.email(faker.internet.userName()),
         password: faker.internet.password(),
       };
-      const existingUser = await createUser(existingUserCredentials);
+      const existingUser = await new UserFactory(em).createOne(
+        existingUserCredentials,
+      );
 
       return request(app.getHttpServer())
         .post(LOGIN_ENDPOINT)
@@ -128,7 +143,7 @@ describe('AuthController', () => {
         email: faker.internet.email(),
         password: faker.internet.password(),
       };
-      await createUser(newUserCredentials);
+      await new UserFactory(em).createOne(newUserCredentials);
 
       return request(app.getHttpServer())
         .post(REGISTER_ENDPOINT)
@@ -157,8 +172,3 @@ describe('AuthController', () => {
     );
   });
 });
-
-const createUser = async (dto: CreateUserDTO): Promise<User> => {
-  const repository = getRepository(User);
-  return createUserHelper(repository, dto);
-};
