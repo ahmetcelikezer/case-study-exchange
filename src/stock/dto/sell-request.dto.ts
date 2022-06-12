@@ -1,5 +1,4 @@
 import {
-  IsDecimal,
   IsNotEmpty,
   IsNumber,
   IsPositive,
@@ -14,13 +13,14 @@ export class SellRequestDTO {
   stock: string;
 
   @IsNotEmpty()
-  @IsDecimal({ decimal_digits: '2' })
-  @Min(0.01)
+  @Type(() => Number)
+  @IsPositive()
+  @IsNumber({ maxDecimalPlaces: 2 }, { message: 'Rate must be a number with 2 decimal places' })
   rate: string;
 
   @IsNotEmpty()
   @Type(() => Number)
-  @IsNumber()
+  @IsNumber({}, { message: 'Amount must be a number' })
   @Min(1)
   @IsPositive()
   amount: number;
