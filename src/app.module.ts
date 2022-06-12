@@ -10,6 +10,7 @@ import { MikroOrmMiddleware, MikroOrmModule } from '@mikro-orm/nestjs';
 import { MikroORM } from '@mikro-orm/core';
 import { ConfigModule } from '@nestjs/config';
 import { StockModule } from './stock/stock.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 const ENV = process.env.NODE_ENV || 'development';
 
@@ -19,6 +20,7 @@ const ENV = process.env.NODE_ENV || 'development';
       isGlobal: true,
       envFilePath: ENV === 'production' ? '.env' : `.env.${ENV}`,
     }),
+    ScheduleModule.forRoot(),
     MikroOrmModule.forRoot(),
     UserModule,
     AuthModule,

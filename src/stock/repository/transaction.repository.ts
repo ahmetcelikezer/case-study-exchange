@@ -2,7 +2,7 @@ import { EntityRepository } from '@mikro-orm/postgresql';
 import { Transaction } from '../entity/transaction.entity';
 import { User } from '../../user/entity/user.entity';
 import { Stock } from '../entity/stock.entity';
-import { LockMode, QueryOrder } from '@mikro-orm/core';
+import { QueryOrder } from '@mikro-orm/core';
 
 export class TransactionRepository extends EntityRepository<Transaction> {
   async findStockBelongingCount(user: User, stock: Stock): Promise<number> {
@@ -43,6 +43,13 @@ export class TransactionRepository extends EntityRepository<Transaction> {
         completedAt: null,
       },
       { orderBy: { rate: QueryOrder.ASC }, limit },
+    );
+  }
+
+  async findLastTransactionByStock(stock: Stock): Promise<Transaction | null> {
+    return this.findOne(
+      { stock, completedAt: { $ne: null } },
+      { orderBy: { completedAt: QueryOrder.DESC } },
     );
   }
 }

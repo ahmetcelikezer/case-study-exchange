@@ -28,7 +28,7 @@ export class Stock {
     mappedBy: 'stock',
     orphanRemoval: true,
   })
-  price = new Collection<StockPrice>(this);
+  prices = new Collection<StockPrice>(this);
 
   @OneToMany({
     entity: () => Transaction,

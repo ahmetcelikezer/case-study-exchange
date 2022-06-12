@@ -21,7 +21,7 @@ export class StockPrice {
   @Property({ columnType: 'decimal(15,2)' })
   rate!: string;
 
-  @Property({ type: DateTimeType, onUpdate: () => new Date() })
+  @Property({ type: DateTimeType, onCreate: () => new Date() })
   issuedAt: Date;
 
   constructor() {

@@ -13,6 +13,7 @@ const config: Options = {
   highlighter: new SqlHighlighter(),
   metadataProvider: TsMorphMetadataProvider,
   registerRequestContext: false,
+  allowGlobalContext: true,
   seeder: {
     path: 'dist/src/seeders',
     pathTs: 'src/seeders',
