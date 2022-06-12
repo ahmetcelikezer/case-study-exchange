@@ -19,9 +19,9 @@ describe('AuthController', () => {
 
   describe('login', () => {
     const incorrectFields = [
-      ['', faker.internet.password()],
-      [faker.internet.email(), ''],
-      [faker.word.verb(5), faker.internet.password()],
+      ['', faker.internet.password(), 'email must be an email'],
+      [faker.internet.email(), '', 'password should not be empty'],
+      [faker.word.verb(5), faker.internet.password(), 'email must be an email'],
     ];
 
     it('should return token and user on successful login', async () => {
@@ -92,14 +92,14 @@ describe('AuthController', () => {
 
     it.each(incorrectFields)(
       'should return error when incorrect inputs are provided',
-      async (email, password) => {
+      async (email, password, errorMessage) => {
         return request(app.getHttpServer())
           .post(LOGIN_ENDPOINT)
           .send({ email, password })
           .expect(400)
           .expect({
             statusCode: 400,
-            message: 'Validation failed',
+            message: errorMessage,
             error: 'Bad Request',
           });
       },
@@ -108,9 +108,9 @@ describe('AuthController', () => {
 
   describe('register', () => {
     const incorrectFields = [
-      ['', faker.internet.password()],
-      [faker.internet.email(), ''],
-      [faker.word.verb(5), faker.internet.password()],
+      ['', faker.internet.password(), 'email must be an email'],
+      [faker.internet.email(), '', 'password should not be empty'],
+      [faker.word.verb(5), faker.internet.password(), 'email must be an email'],
     ];
 
     it('should return token and user on successful registration', async () => {
@@ -158,14 +158,14 @@ describe('AuthController', () => {
 
     it.each(incorrectFields)(
       'should return error when incorrect inputs are provided',
-      async (email, password) => {
+      async (email, password, errorMessage) => {
         return request(app.getHttpServer())
           .post(REGISTER_ENDPOINT)
           .send({ email, password })
           .expect(400)
           .expect({
             statusCode: 400,
-            message: 'Validation failed',
+            message: errorMessage,
             error: 'Bad Request',
           });
       },
