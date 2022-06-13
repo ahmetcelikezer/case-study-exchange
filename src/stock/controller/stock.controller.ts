@@ -2,7 +2,6 @@ import {
   Body,
   Controller,
   HttpCode,
-  NotImplementedException,
   Post,
   UnauthorizedException,
   UseGuards,
@@ -16,14 +15,14 @@ import { User } from '../../user/entity/user.entity';
 import { ValidationPipe } from '../../pipe/validation.pipe';
 import { SellRequestDTO } from '../dto/sell-request.dto';
 import { BuyRequestDTO } from '../dto/buy-request.dto';
-import { UserRepository } from '../../user/repository/user.repository';
+import { UserService } from '../../user/service/user.service';
 
 @Controller('stock')
 @UseGuards(JwtAuthGuard)
 export class StockController {
   constructor(
     private readonly transactionService: TransactionService,
-    private readonly userRepository: UserRepository,
+    private readonly userService: UserService,
   ) {}
 
   @Post('buy')
@@ -32,7 +31,7 @@ export class StockController {
     @Body(new ValidationPipe()) dto: BuyRequestDTO,
     @CurrentUser() user: User,
   ): Promise<BuyResponseDTO> {
-    user = await this.userRepository.findOne({ id: user.id });
+    user = await this.userService.findById(user.id);
     if (!user) {
       throw new UnauthorizedException('Can not find user');
     }
@@ -56,7 +55,7 @@ export class StockController {
     @Body(new ValidationPipe()) dto: SellRequestDTO,
     @CurrentUser() user: User,
   ): Promise<SellResponseDTO> {
-    user = await this.userRepository.findOne({ id: user.id });
+    user = await this.userService.findById(user.id);
     if (!user) {
       throw new UnauthorizedException('Can not find user');
     }

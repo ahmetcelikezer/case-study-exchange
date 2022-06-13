@@ -4,6 +4,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@mikro-orm/nestjs';
 import { User } from '../entity/user.entity';
 import { CreateUserDTO } from '../dto/create-user.dto';
+import { faker } from '@faker-js/faker';
 
 describe('UserService', () => {
   let userService: UserService;
@@ -28,6 +29,29 @@ describe('UserService', () => {
     userRepository = moduleRef.get<UserRepository>(UserRepository);
   });
 
+  describe('findById', () => {
+    it('should return user when user exists', async () => {
+      const user = new User();
+
+      jest
+        .spyOn(userRepository, 'findOne')
+        .mockReturnValue(Promise.resolve(user));
+
+      const result = await userService.findById(user.id);
+
+      expect(result).toBe(user);
+    });
+
+    it('should return null when user not found', async () => {
+      jest
+        .spyOn(userRepository, 'findOne')
+        .mockReturnValue(Promise.resolve(null));
+
+      const result = await userService.findById(faker.datatype.uuid());
+
+      expect(result).toBeNull();
+    });
+  });
   describe('findByEmail', () => {
     it('should return user when user exists', async () => {
       const email = 'john@doe.com';

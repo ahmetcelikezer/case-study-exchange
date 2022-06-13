@@ -9,6 +9,7 @@ import { TransactionService } from './service/transaction.service';
 import { Wallet } from '../user/entity/wallet.entity';
 import { User } from '../user/entity/user.entity';
 import { StockService } from './service/stock.service';
+import { UserService } from '../user/service/user.service';
 
 @Module({
   imports: [
@@ -16,7 +17,7 @@ import { StockService } from './service/stock.service';
       entities: [Stock, StockPrice, Transaction, Wallet, User],
     }),
   ],
-  providers: [WalletService, TransactionService, StockService],
+  providers: [WalletService, TransactionService, StockService, UserService],
   controllers: [StockController],
 })
 export class StockModule {}

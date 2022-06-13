@@ -1,0 +1,176 @@
+{
+	"info": {
+		"_postman_id": "b8bdbb7a-5503-49cb-afaf-fd21b788897e",
+		"name": "Eva Exchange",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Task Requests",
+			"item": [
+				{
+					"name": "Sell Share",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU3YTQxOTViLWJlODItNGE5NC1iNWUwLTZhMzg4YmRkZjAzMCIsImlhdCI6MTY1NTA4MDk0MCwiZXhwIjoxNjU1MTY3MzQwfQ.EBgwdBFUnf9aIXNQaUQt0zqCX9Iyh-_oiSAwv5gDaQg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "stock",
+									"value": "ZNV",
+									"description": "Unique stock symbol",
+									"type": "text"
+								},
+								{
+									"key": "rate",
+									"value": "651.43",
+									"description": "Price for each stock",
+									"type": "text"
+								},
+								{
+									"key": "amount",
+									"value": "1",
+									"description": "How many stock will be sell",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/stock/sell",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"stock",
+								"sell"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buy Share",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU3YTQxOTViLWJlODItNGE5NC1iNWUwLTZhMzg4YmRkZjAzMCIsImlhdCI6MTY1NTA4MDk0MCwiZXhwIjoxNjU1MTY3MzQwfQ.EBgwdBFUnf9aIXNQaUQt0zqCX9Iyh-_oiSAwv5gDaQg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "stock",
+									"value": "ZNV",
+									"description": "Unique stock symbol",
+									"type": "text"
+								},
+								{
+									"key": "amount",
+									"value": "1",
+									"description": "How many stocks will be bought",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/stock/buy",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"stock",
+								"buy"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "doe@eva.guru",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/auth/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "ahmet@celikezer.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "3y3ofgol3m",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/auth/register",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

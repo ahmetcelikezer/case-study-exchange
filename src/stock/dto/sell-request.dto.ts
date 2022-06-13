@@ -15,7 +15,10 @@ export class SellRequestDTO {
   @IsNotEmpty()
   @Type(() => Number)
   @IsPositive()
-  @IsNumber({ maxDecimalPlaces: 2 }, { message: 'Rate must be a number with 2 decimal places' })
+  @IsNumber(
+    { maxDecimalPlaces: 2 },
+    { message: 'Rate must be a number with 2 decimal places' },
+  )
   rate: string;
 
   @IsNotEmpty()
